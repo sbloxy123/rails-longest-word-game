@@ -9,26 +9,25 @@ class GamesController < ApplicationController
     @letters = params[:letters]
     @word = params[:word]
     @result = api_check(@word)
-    @announce = ""
+    @check = letter_check(@word)
+    @announce = ''
   end
 
   def api_check(word)
     url = "https://wagon-dictionary.herokuapp.com/#{word}"
     word_sterialised = URI.open(url).read
     @dictionary_word = JSON.parse(word_sterialised)
-    return @dictionary_word["found"]
+    @dictionary_word['found']
   end
 
-  def letter_check
-    @word.split('').each do |letter|
+  def letter_check(word)
+    word.split('').each do |letter|
       if @letters.include?(letter)
-        @letter_check
+        true
       end
     end
   end
 
-  def announce(result)
-    @result && letter_check ? @announce = "you win" : @announce = "you lose"
-  end
+  @result && @check ? @announce = result : @announce = "you lose"
 
 end
