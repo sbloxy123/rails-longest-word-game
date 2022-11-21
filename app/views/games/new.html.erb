@@ -1,0 +1,21 @@
+<div class="container mt-3 text-center">
+
+<h1>New game</h1>
+
+<div class="mt-3 text-center">
+  <% @letters.each do |letter|%>
+    <h1 class = "btn btn-primary">
+      <%= letter %>
+    </h1>
+  <% end %>
+</div>
+
+<form action="score" method="POST" data-turbo="false">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <%= hidden_field_tag :letters, @letters %>
+  <input type="text" name="word" placeholder="submit your word">
+  <input type="submit">
+</form>
+
+
+</div>
