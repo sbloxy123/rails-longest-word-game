@@ -10,7 +10,7 @@ class GamesController < ApplicationController
     @word = params[:word]
     @result = api_check(@word)
     @check = letter_check(@word)
-    @announce = ''
+
   end
 
   def api_check(word)
@@ -22,12 +22,17 @@ class GamesController < ApplicationController
 
   def letter_check(word)
     word.split('').each do |letter|
-      if @letters.include?(letter)
-        true
-      end
+      @letters.include?(letter) ? @ran = true : @ran = false
     end
+    @ran
   end
 
-  @result && @check ? @announce = result : @announce = "you lose"
+  @win = ""
+
+  if @result && @check == true
+    @win = 'you win'
+  else
+    @win = 'you lose'
+  end
 
 end
